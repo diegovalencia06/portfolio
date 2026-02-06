@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Developer | Diego Monreal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ADB5; /* Color acento (Turquesa técnico) */
+            --primary-hover: #00d2dc;
+            --dark: #222831;
+            --darkar: #1a1d24;
+            --light: #EEEEEE;
+            --gray: #393E46;
+            --text-muted: #b0b0b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Fondo animado sutil */
+            background: linear-gradient(-45deg, #222831, #393E46, #222831, #1a1d24);
+	        background-size: 400% 400%;
+	        animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+	        0% { background-position: 0% 50%; }
+	        50% { background-position: 100% 50%; }
+	        100% { background-position: 0% 50%; }
+        }
+
+        /* Navegación */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(34, 40, 49, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 173, 181, 0.1);
+            border-bottom: 1px solid #393E46;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section y Foto de Perfil */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 50px; /* Ajuste para el navbar fijo */
+        }
+
+        /* ESTILOS PARA LA FOTO DE PERFIL */
+        .profile-photo-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 25px rgba(0, 173, 181, 0.4);
+            transition: transform 0.3s ease;
+            /* Pone una imagen por defecto si no hay foto */
+            background-color: var(--gray);
+            background-image: url('https://via.placeholder.com/180x180.png?text=Tu+Foto');
+            background-size: cover;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+            /* Efecto de texto degradado opcional */
+            background: linear-gradient(to right, var(--primary), var(--primary-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .btn {
+            padding: 0.8rem 2.5rem;
+            background-color: var(--primary);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 173, 181, 0.3);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 173, 181, 0.4);
+        }
+
+        /* Secciones Generales */
+        section {
+            padding: 6rem 10%;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Tecnologías (Grid Interactivo) */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 2.5rem;
+            text-align: center;
+        }
+
+        .tech-item {
+            background: var(--gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote */
+            border: 1px solid transparent;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: var(--darkar);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 173, 181, 0.3);
+        }
+
+        .tech-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Experiencia y Educación (Timeline mejorado) */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--gray);
+        }
+
+        .timeline-item {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            margin-left: 2rem;
+            position: relative;
+            border: 1px solid #444;
+            transition: 0.3s;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .badge {
+            background: var(--dark);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Proyectos (Cards Interactivas) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--gray);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid #444;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: var(--primary);
+        }
+        
+        /* Placeholder para imagen de proyecto */
+        .project-image-placeholder {
+            height: 180px;
+            background: #2a2f38;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 3rem;
+            border-bottom: 1px solid #444;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .project-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-links a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: var(--dark);
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-links a:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Contacto */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .contact-item {
+            font-size: 1.2rem;
+            transition: 0.3s;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .contact-item:hover {
+            background: var(--gray);
+            transform: translateY(-5px);
+        }
+
+        .contact-item a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.3s;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--darkar);
+            color: var(--text-muted);
+            border-top: 1px solid #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            nav { padding: 1.5rem; justify-content: center;}
+            .nav-links { display: none; } /* Menú móvil simplificado */
+            section { padding: 4rem 5%; }
+            .timeline::before { left: -10px; }
+            .timeline-item { margin-left: 1rem; }
+            .timeline-item::before { left: -1.8rem; }
+            .contact-container { gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav data-aos="fade-down" data-aos-duration="1000">
+        <div class="logo">&lt;Dev/&gt;</div>
+        <div class="nav-links">
+            <a href="#about">Sobre mí</a>
+            <a href="#experience">Experiencia</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Estudios</a>
+            <a href="#contact">Contacto</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="profile-photo-container" data-aos="zoom-in" data-aos-duration="1500">
+            <img src="img/documento_wf.jpg" alt="Foto de Perfil" class="profile-photo">
+        </div>
+
+        <h1 data-aos="fade-up" data-aos-delay="200">Hola, soy <span>Diego Monreal</span></h1>
+        <p data-aos="fade-up" data-aos-delay="400">Desarrollador Web Full Stack (En formación) | DAW | Cloud Enthusiast</p>
+        <a href="#contact" class="btn" data-aos="fade-up" data-aos-delay="600">Contáctame <i class="fas fa-chevron-right" style="margin-left: 8px; font-size: 0.8rem;"></i></a>
+    </section>
+
+    <section id="about" data-aos="fade-up">
+        <h2><i class="fas fa-user-astronaut" style="color: var(--primary); margin-right: 10px;"></i> Sobre mí</h2>
+        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.1rem;">
+                Soy un desarrollador en constante aprendizaje, apasionado por construir soluciones eficientes y escalables. 
+                Tras mi paso por SMR, descubrí mi vocación por el código y actualmente estoy finalizando <strong>DAW en el IES El Grao</strong>.
+            </p>
+            <br>
+            <p style="color: var(--text-muted);">
+                <em>[Me considero una persona proactiva, con gran capacidad para resolver problemas y trabajar en equipo. Siempre buscando el próximo reto técnico.]</em>
+            </p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 data-aos="fade-right">Experiencia Profesional</h2>
+        <div class="timeline">
+
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                <span class="timeline-date">Marzo 2024 - Junio 2024</span>
+                <h3 class="timeline-title">Técnico en Prácticas SMR</h3>
+                <h4>EVHA (Entitat Valenciana d'Habitatge i Sòl)</h4>
+                 <p style="margin-top: 10px; color: var(--text-muted);">
+                    Soporte técnico de nivel 1 y gestión de infraestructura IT.
+                </p>
+                <ul style="margin-top: 10px; margin-left: 20px; font-size: 0.95rem; color: var(--text-muted);">
+                    <li>Resolución de incidencias de hardware y software a usuarios.</li>
+                    <li>Configuración y mantenimiento de equipos en red.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 data-aos="zoom-in">Stack Tecnológico</h2>
+        <div class="tech-grid">
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-html5"></i><br>HTML5</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="150"><i class="fab fa-css3-alt"></i><br>CSS3</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="200"><i class="fab fa-js"></i><br>JavaScript</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="250"><i class="fab fa-vuejs"></i><br>Vue.js</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="300"><i class="fab fa-bootstrap"></i><br>Bootstrap</div>
+            
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="350"><i class="fab fa-php"></i><br>PHP</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="400"><i class="fab fa-java"></i><br>Java</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="450"><i class="fab fa-node"></i><br>Node.js</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="500"><i class="fas fa-database"></i><br>MySQL</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="550"><i class="fas fa-server"></i><br>PostgreSQL</div>
+            
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="600"><i class="fab fa-git-alt"></i><br>Git</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="650"><i class="fab fa-aws"></i><br>AWS</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="700" style="border-color: #ff6b6b;"><i class="fas fa-network-wired" style="color: #ff6b6b;"></i><br>n8n</div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2 data-aos="fade-right">Formación Académica</h2>
+        <div class="timeline">
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2024 - 2026 (En progreso)</span>
+                <h3 class="timeline-title">DAW - Desarrollo de Aplicaciones Web</h3>
+                <h4>IES El Grao</h4>
+            </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                <span class="timeline-date">2022 - 2024</span>
+                <h3 class="timeline-title">SMR - Sistemas Microinformáticos y Redes</h3>
+                <h4>CIPFP Ausiàs March</h4>
+            </div>
+            
+            <div class="timeline-item" style="border-left-color: #ff9900;" data-aos="zoom-in" data-aos-delay="300">
+                <span class="timeline-date" style="color: #ff9900;">Certificaciones Cloud</span>
+                <h3 class="timeline-title"><i class="fab fa-aws" style="color:#ff9900"></i> Amazon Web Services</h3>
+                <div style="margin-top: 15px;">
+                    <span class="badge" style="border-color: #ff9900; color: #ff9900;">AWS Cloud Foundations</span>
+                    <span class="badge" style="border-color: #ff9900; color: #ff9900;">AWS Cloud Operations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="projects">
+    <h2 data-aos="zoom-in">Proyectos Destacados</h2>
+    
+    <div class="projects-grid">
+        
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-image-placeholder" style="background: rgb(121, 255, 132); position: relative; display: flex; justify-content: center; align-items: center;">
+                <div style="position: absolute; top: 15px; right: 15px; background: #ffc107; color: #222; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+                    🚧 En Desarrollo
+                </div>
+                <img src="img/logo.png" alt="Logo NomadNet" style="height: 50%; object-fit: contain;">
+            </div>
+
+            <div class="project-content">
+                <h3>NomadNet / Red Social</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                    Plataforma colaborativa diseñada para viajeros. Los usuarios documentan sus experiencias rellenando <strong>formularios detallados</strong> (itinerario, consejos, presupuesto), que el sistema convierte automáticamente en <strong>artículos tipo blog</strong>.
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                    <i class="fas fa-bullseye" style="color: var(--primary);"></i> <strong>Objetivo:</strong> Crear una base de conocimiento real para ayudar a otros usuarios a planificar sus futuras rutas basándose en experiencias vividas.
+                </p>
+
+                <div style="margin: 15px 0;">
+                    <span class="badge">PHP</span> 
+                    <span class="badge">MySQL</span> 
+                    <span class="badge">CRUD</span>
+                    <span class="badge">JavaScript</span>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://github.com/diegovalencia06/proyecto3_DM"><i class="fab fa-github"></i> Ver Avance en GitHub</a>
+                </div>
+            </div>
+        </div> <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-image-placeholder" style="background: #4834d4; position: relative;">
+                <div style="position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.95); color: #4834d4; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                    🎓 Proyecto Académico
+                </div>
+                <div style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                    <img src="img/logo (1).png" style="height: 50%;"></img>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <h3>Musiverse - Venta de Entradas</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                    Sistema completo para la gestión y compra de entradas de conciertos. Desarrollado nativamente en PHP y MySQL.
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; border-left: 2px solid var(--primary); padding-left: 10px; margin-bottom: 1rem;">
+                    <strong>El reto principal:</strong> Simulación de un entorno laboral real. El foco del proyecto fue la <strong>coordinación del equipo</strong>, el reparto de tareas modulares y la gestión de versiones (merge/conflictos) usando Git.
+                </p>
+
+                <div style="margin: 15px 0;">
+                    <span class="badge">PHP</span> 
+                    <span class="badge">MySQL</span> 
+                    <span class="badge" style="border-color: #fff; background: #555; color: #fff;">Git Collaboration</span>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://github.com/PepeTureatca/tiendaVentaTickets_ProyectoIntermodular2ndoProyecto"><i class="fab fa-github"></i> Ver Repositorio</a>
+                </div>
+            </div>
+        </div> </div> </section>
+
+    <section id="contact" data-aos="fade-in">
+        <h2>Contacto</h2>
+        <div class="contact-container">
+            <div class="contact-item">
+                <i class="fas fa-envelope fa-3x" style="color: var(--primary);"></i>
+                <a href="mailto:diegomonreal06@gmail.com">Coreo electrónico</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-linkedin fa-3x" style="color: #0e76a8;"></i>
+                <a href="https://www.linkedin.com/in/diego-monreal-matamoros-1a954b326/" target="_blank">Linkedin</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone-alt fa-3x" style="color: var(--primary);"></i>
+                <a href="tel:+34650650762">+34 650 65 07 62</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-github fa-3x" style="color: #6e5494;"></i>
+                <a href="https://github.com/diegovalencia06" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Diego Monreal Matamoros.</i></p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializar la librería de animaciones
+        AOS.init({
+            duration: 800, // Duración de la animación en milisegundos
+            once: true, // Si es true, la animación solo ocurre una vez al bajar
+            offset: 100 // Comienza la animación un poco antes de que el elemento llegue a la pantalla
+        });
+    </script>
+
+</body>
+</html>
